@@ -1,0 +1,206 @@
+[gd_scene load_steps=18 format=3 uid="uid://hned0ve3e6t2"]
+
+[ext_resource type="Script" uid="uid://jhbxm4g4mwwn" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://h671gl16rien" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://da0ikiqrrc38m" path="res://mob.tscn" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://cn6fbr6b3sfbw" path="res://user_interface.gd" id="4_7mycd"]
+[ext_resource type="FontFile" uid="uid://cyxhh7ddkn62q" path="res://fonts/Montserrat-Medium.ttf" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://drw6afdpmxsoh" path="res://score_label.gd" id="5_7mycd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(0.529312, 0.907499, 0.745822, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_lquwl")
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
+albedo_color = Color(0.968627, 0.545098, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0xm2m"]
+material = SubResource("StandardMaterial3D_ig7tw")
+
+[sub_resource type="Curve3D" id="Curve3D_ig7tw"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -16.1755, 0, -16.1054, 0, 0, 0, 0, 0, 0, 16.1637, 0, -15.9316, 0, 0, 0, 0, 0, 0, 16.1637, 0, 16.4076, 0, 0, 0, 0, 0, 0, -16.0016, 0, 15.886),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Theme" id="Theme_272bh"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_7mycd"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_5vw27"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 64
+
+[sub_resource type="Theme" id="Theme_kek77"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_4c57u"]
+default_font = ExtResource("4_lquwl")
+default_font_size = 24
+
+[node name="main" type="Node"]
+script = ExtResource("1_h2yge")
+mob_scene = ExtResource("2_1bvp3")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_7dm0k")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_ig7tw")
+metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 12, 0)
+shadow_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="Ground" instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+metadata/_edit_lock_ = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 19, 19)
+fov = 64.8
+
+[node name="Cylinders" type="Node3D" parent="."]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -16)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 16)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 16)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -16)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_ig7tw")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(-0.00537648, 0, -0.999985, 0, 1, 0, 0.999985, 0, -0.00537648, -16.1755, 0, -16.1054)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+script = ExtResource("4_7mycd")
+
+[node name="TopBar" type="MarginContainer" parent="UserInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/TopBar"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/TopBar/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_272bh")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+script = ExtResource("5_7mycd")
+
+[node name="TimerLabel" type="Label" parent="UserInterface/TopBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="CenterMessage" type="CenterContainer" parent="UserInterface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -39.5
+offset_right = 0.5
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BigMessage" type="Label" parent="UserInterface/CenterMessage"]
+layout_mode = 2
+theme = SubResource("Theme_5vw27")
+theme_override_constants/outline_size = 2
+
+[node name="Toast" type="MarginContainer" parent="UserInterface"]
+offset_left = 97.0
+offset_top = 8.0
+offset_right = 137.0
+offset_bottom = 48.0
+
+[node name="ToastLabel" type="Label" parent="UserInterface/Toast"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Retry" type="VBoxContainer" parent="UserInterface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -51.0
+offset_right = 101.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RetryTitle" type="Label" parent="UserInterface/Retry"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_kek77")
+text = "คุณตายแล้ว"
+
+[node name="RetryHint" type="Label" parent="UserInterface/Retry"]
+layout_mode = 2
+theme = SubResource("Theme_4c57u")
+text = "กด Spacebar หรือ Enter เพื่อเล่นใหม่"
+
+[node name="Dim" type="ColorRect" parent="UserInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.0784314)
+metadata/_edit_lock_ = true
+
+[connection signal="hit" from="Ground/Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://o11vokwi5qth"]
+
+[ext_resource type="AudioStream" uid="uid://b2pjmqdk24ms7" path="res://art/Andrey Kulik feat. Andrius Klimka - Prokhorovka (Battle).mp3" id="1_fvyft"]
+
+[node name="Music" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_fvyft")
+autoplay = true

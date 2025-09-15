@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://e42n3xr86w4n"
+path="res://.godot/imported/Andrius Klimka - Tundra (Intro).mp3-ecf4e0976067636816329c43039d4b71.mp3str"
+
+[deps]
+
+source_file="res://art/Andrius Klimka - Tundra (Intro).mp3"
+dest_files=["res://.godot/imported/Andrius Klimka - Tundra (Intro).mp3-ecf4e0976067636816329c43039d4b71.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

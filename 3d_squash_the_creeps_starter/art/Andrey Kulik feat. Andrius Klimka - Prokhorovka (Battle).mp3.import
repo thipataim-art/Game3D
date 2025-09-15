@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2pjmqdk24ms7"
+path="res://.godot/imported/Andrey Kulik feat. Andrius Klimka - Prokhorovka (Battle).mp3-fe770a00294a03cd1c8b96d63b28a439.mp3str"
+
+[deps]
+
+source_file="res://art/Andrey Kulik feat. Andrius Klimka - Prokhorovka (Battle).mp3"
+dest_files=["res://.godot/imported/Andrey Kulik feat. Andrius Klimka - Prokhorovka (Battle).mp3-fe770a00294a03cd1c8b96d63b28a439.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
